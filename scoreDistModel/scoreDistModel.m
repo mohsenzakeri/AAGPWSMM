@@ -33,9 +33,9 @@ genders = findUserGenders(usr);
 
 trainFeat_max = trainFeat(:,1);
 
-[C,accuracy] = TuneC(genders, trainFeat,0,1,100,10000);
+%[C,accuracy] = TuneC(genders, trainFeat,0,1,100,10000);
 % logistic 0
-% C = 101;
+C = 101;
 % logistic 6
 % C = 701
 % logistic 7
@@ -46,8 +46,8 @@ trainFeat_max = trainFeat(:,1);
 % C = 101;
 % svm 2
 % c = 401;
-mih_model = train(genders, trainFeat_mean ,[sprintf('-s 0 -c %f',C)]); 
-[predicted_label, accuracy, prob_estimates] = predict(genders, trainFeat, mih_model,['-b 1']);
+minh_model = train(genders, trainFeat ,[sprintf('-s 0 -c %f',C)]); 
+[predicted_label, accuracy, prob_estimates] = predict(genders, trainFeat, minh_model,['-b 1']);
 
 tst_scores = scoreSubSequences(tst_ss_norm,tst_usr_ss, user_log_model);
 [testFeat_mean,sorted_scores] = buildScoreSubModel(tst_scores,tst_usr_ss);
@@ -61,6 +61,4 @@ test_genders = findUserGenders(usr);
 
 testFeat_max = testFeat(:,1);
 
-[predicted_label, accuracy, prob_estimates] = predict(test_genders, testFeat, mih_model,['-b 1']);
-
-
+[predicted_label, accuracy, prob_estimates] = predict(test_genders, testFeat, minh_model,['-b 1']);
